@@ -11,19 +11,19 @@ public class StudentController
     //To implement Singleton java class
     StudentService stu = StudentService.getInstance();
 
-    @GetMapping("/student")
+    @GetMapping("/students")
     public List<Student> show()
     {
         return stu.getAllStudents();
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/students/{id}")
     public Student showByID(@PathVariable String id)
     {
         return stu.getStudentByID(Integer.parseInt(id));
     }
 
-    @PostMapping("/student")
+    @PostMapping("/students")
     public Student create(@RequestBody Map<String,String> body)
     {
         int ID = Integer.parseInt(body.get("id"));
@@ -32,7 +32,7 @@ public class StudentController
         return stu.addStudent(ID,name,course);
     }
 
-    @PutMapping("/student/{id}")
+    @PutMapping("/students/{id}")
     public Student update(@PathVariable String id,@RequestBody Map<String,String> body)
     {
         int ID = Integer.parseInt(id);
@@ -41,7 +41,7 @@ public class StudentController
         return stu.updateStudent(ID,name,course);
     }
 
-    @DeleteMapping("/student/{id}")
+    @DeleteMapping("/students/{id}")
     public boolean delete(@PathVariable String id)
     {
         int ID = Integer.parseInt(id);
