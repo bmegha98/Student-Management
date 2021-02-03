@@ -1,7 +1,6 @@
-package com.springboot.restProject.Student.Management.models;
+package com.springboot.restProject.Student.Management.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.springboot.restProject.Student.Management.models.entities.Department;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

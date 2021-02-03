@@ -1,8 +1,8 @@
 package com.springboot.restProject.Student.Management.services;
 
 import com.springboot.restProject.Student.Management.exceptions.ResourceNotFoundException;
-import com.springboot.restProject.Student.Management.models.Department;
-import com.springboot.restProject.Student.Management.models.Student;
+import com.springboot.restProject.Student.Management.models.entities.Department;
+import com.springboot.restProject.Student.Management.models.entities.Student;
 import com.springboot.restProject.Student.Management.repositories.DepartmentRepository;
 import com.springboot.restProject.Student.Management.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,8 @@
 package com.springboot.restProject.Student.Management.controllers;
 
 import com.springboot.restProject.Student.Management.exceptions.ResourceNotFoundException;
-import com.springboot.restProject.Student.Management.models.Student;
+import com.springboot.restProject.Student.Management.models.entities.Student;
+import com.springboot.restProject.Student.Management.models.requests.RequestClass;
 import com.springboot.restProject.Student.Management.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ public class StudentController
     //To implement Singleton java class
     @Autowired
     StudentService stu;
+
+    @Autowired
+    RequestClass rc;
 
     @GetMapping("/students")
     public List<Student> get()
@@ -31,15 +35,14 @@ public class StudentController
         return stu.showByID(id);
     }
 
-    @PostMapping("/department/{id}/students")
-    public Student create(@PathVariable Integer id,@RequestBody Student s)
-    {
-        return stu.createStudent(id,s);
+    @PostMapping("/students")
+    public ResponseEntity<Student> create(@RequestBody RequestClass s) throws ResourceNotFoundException {
+        return stu.createStudent(s);
     }
 
-    @PutMapping("/students/{id}/department/{deptId}")
-    public ResponseEntity<Student> update(@PathVariable Integer id,@PathVariable Integer deptId,@RequestBody Student s) throws ResourceNotFoundException {
-        return stu.updateStudent(id,deptId,s);
+    @PutMapping("/students/{id}")
+    public ResponseEntity<Student> update(@PathVariable Integer id,@RequestBody RequestClass s) throws ResourceNotFoundException {
+        return stu.updateStudent(id,s);
     }
 
     @DeleteMapping("/students/{id}")

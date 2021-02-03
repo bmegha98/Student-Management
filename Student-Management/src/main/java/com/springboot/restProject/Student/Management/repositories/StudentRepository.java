@@ -1,6 +1,6 @@
 package com.springboot.restProject.Student.Management.repositories;
 
-import com.springboot.restProject.Student.Management.models.Student;
+import com.springboot.restProject.Student.Management.models.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

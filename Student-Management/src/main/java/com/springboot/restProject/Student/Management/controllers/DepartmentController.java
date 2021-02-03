@@ -1,15 +1,12 @@
 package com.springboot.restProject.Student.Management.controllers;
 
 import com.springboot.restProject.Student.Management.exceptions.ResourceNotFoundException;
-import com.springboot.restProject.Student.Management.models.Department;
-import com.springboot.restProject.Student.Management.models.Student;
-import com.springboot.restProject.Student.Management.repositories.DepartmentRepository;
+import com.springboot.restProject.Student.Management.models.entities.Department;
 import com.springboot.restProject.Student.Management.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Map;
 
