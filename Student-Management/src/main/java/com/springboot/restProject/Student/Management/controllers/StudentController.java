@@ -1,10 +1,10 @@
 package com.springboot.restProject.Student.Management.controllers;
 
-import com.springboot.restProject.Student.Management.models.Department;
-import com.springboot.restProject.Student.Management.repositories.DepartmentRepository;
-import com.springboot.restProject.Student.Management.repositories.StudentRepository;
+import com.springboot.restProject.Student.Management.exceptions.ResourceNotFoundException;
 import com.springboot.restProject.Student.Management.models.Student;
+import com.springboot.restProject.Student.Management.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,51 +13,37 @@ import java.util.List;
 public class StudentController
 {
     //To implement Singleton java class
-    @Autowired                                      //Inject object of StudentService class
-    private StudentRepository rep;
-
     @Autowired
-    private DepartmentRepository drep;
+    StudentService stu;
 
     @GetMapping("/students")
-    public List<Student> showAll()
+    public List<Student> get()
     {
-        return rep.findAll();
+        return stu.showAll();
     }
     @GetMapping("/department/{departmentId}/students")
-    public List<Student> show(@PathVariable Integer departmentId) {
-        return rep.findByDept_dnumber(departmentId);
+    public List<Student> getbyid(@PathVariable Integer departmentId) {
+        return stu.showByDept(departmentId);
     }
 
     @GetMapping("/students/{id}")
-    public Student showByID(@PathVariable Integer id)
-    {
-        return rep.getOne(id);
+    public ResponseEntity<Student> showByID(@PathVariable Integer id) throws ResourceNotFoundException {
+        return stu.showByID(id);
     }
 
     @PostMapping("/department/{id}/students")
     public Student create(@PathVariable Integer id,@RequestBody Student s)
     {
-        Department d = drep.getOne(id);
-        s.setDept(d);
-        return rep.saveAndFlush(s);
+        return stu.createStudent(id,s);
     }
 
     @PutMapping("/students/{id}/department/{deptId}")
-    public Student update(@PathVariable Integer id,@PathVariable Integer deptId,@RequestBody Student s)
-    {
-        Department d = drep.getOne(deptId);
-        Student stu = rep.getOne(id);
-        stu.setName(s.getName());
-        stu.setId(s.getId());
-        stu.setDept(d);
-        rep.save(stu);
-        return stu;
+    public ResponseEntity<Student> update(@PathVariable Integer id,@PathVariable Integer deptId,@RequestBody Student s) throws ResourceNotFoundException {
+        return stu.updateStudent(id,deptId,s);
     }
 
     @DeleteMapping("/students/{id}")
-    public void delete(@PathVariable Integer id)
-    {
-        rep.deleteById(id);
+    public void delete(@PathVariable Integer id) throws ResourceNotFoundException {
+        stu.deleteStudent(id);
     }
 }

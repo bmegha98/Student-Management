@@ -2,13 +2,17 @@ package com.springboot.restProject.Student.Management.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "department")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Department
 {
     @Id
@@ -19,46 +23,7 @@ public class Department
 
     @OneToMany(mappedBy = "dept")
 
-    @JsonIgnore
+    @JsonIgnore         //Ignore the property
     private List<Student> studentList;
-    public Department() {
-    }
 
-    public Department(Integer dnumber, String dname,String dloc) {
-        this.dnumber = dnumber;
-        this.dname = dname;
-        this.dlocation = dloc;
-    }
-
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
-
-    public Integer getDnumber() {
-        return dnumber;
-    }
-
-    public void setDnumber(Integer dnumber) {
-        this.dnumber = dnumber;
-    }
-
-    public String getDname() {
-        return dname;
-    }
-
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
-
-    public String getDlocation() {
-        return dlocation;
-    }
-
-    public void setDlocation(String dlocation) {
-        this.dlocation = dlocation;
-    }
 }
