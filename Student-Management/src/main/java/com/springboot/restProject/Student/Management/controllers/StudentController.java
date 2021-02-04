@@ -26,7 +26,7 @@ public class StudentController
         return stu.showAll();
     }
     @GetMapping("/department/{departmentId}/students")
-    public List<Student> getbyid(@PathVariable Integer departmentId) {
+    public List<Student> getbyid(@PathVariable Integer departmentId) throws ResourceNotFoundException {
         return stu.showByDept(departmentId);
     }
 

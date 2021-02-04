@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService
@@ -26,8 +27,12 @@ public class StudentService
         return rep.findAll();
     }
 
-    public List<Student> showByDept(Integer departmentId) {
-        return rep.findByDept_dnumber(departmentId);
+    public List<Student> showByDept(Integer departmentId) throws ResourceNotFoundException {
+        Optional<Department> d = drep.findById(departmentId);
+        if(d.isPresent())
+            return rep.findAllByDept(d.get());
+        else
+            throw  new ResourceNotFoundException("Not found");
     }
 
     public ResponseEntity<Student> showByID(Integer id)throws ResourceNotFoundException

@@ -53,7 +53,7 @@ public class DepartmentService
         Department Tdept = rep.findById(destId).orElseThrow(
                 () -> new ResourceNotFoundException("Target Department "+ destId+" not present :("));
 
-        List<Student> stuList = srep.findByDept_dnumber(srcId);
+        List<Student> stuList = srep.findAllByDept(Sdept);
         for(Student s : stuList)
         {
             s.setDept(Tdept);
