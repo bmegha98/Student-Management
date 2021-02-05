@@ -21,4 +21,9 @@ public class Student
     @JoinColumn(name = "dno",nullable = false)           //Indicates that this is owner entity
     private Department dept;
 
+    public Student(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+        this.dept = new Department()
+    }
 }

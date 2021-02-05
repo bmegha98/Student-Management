@@ -37,8 +37,9 @@ public class StudentService
 
     public ResponseEntity<Student> showByID(Integer id)throws ResourceNotFoundException
     {
-         Student s= rep.findById(id).orElseThrow(
+         Student s= rep.findById(id).get();/*.orElseThrow(
                     () -> new ResourceNotFoundException("Student " + id+" not found :("));
+                    */
          return ResponseEntity.ok().body(s);
     }
 
