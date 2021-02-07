@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity(name = "student")
-//@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Student
 {
@@ -24,6 +24,5 @@ public class Student
     public Student(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.dept = new Department()
     }
 }

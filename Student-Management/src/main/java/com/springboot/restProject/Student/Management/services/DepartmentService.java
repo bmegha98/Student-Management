@@ -6,10 +6,9 @@ import com.springboot.restProject.Student.Management.models.entities.Student;
 import com.springboot.restProject.Student.Management.repositories.DepartmentRepository;
 import com.springboot.restProject.Student.Management.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,33 +19,9 @@ public class DepartmentService
 
     @Autowired
     private StudentRepository srep;
-    public List<Department> showAll()
-    {
-        return rep.findAll();
-    }
 
-    public ResponseEntity<Department> showByID(Integer id) throws ResourceNotFoundException {
-        Department d = rep.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Department "+ id+" not found :("));
-        return ResponseEntity.ok().body(d);
-    }
+    public Integer deleteDepartment(Integer srcId, Integer destId) throws ResourceNotFoundException {
 
-    public Department createDepartment(@RequestBody Department d)
-    {
-        return rep.save(d);
-    }
-
-    public ResponseEntity<Department> updateDepartment(Integer id,Department d) throws ResourceNotFoundException {
-        Department dept = rep.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Department "+ id+" not found :("));
-        dept.setDname(d.getDname());
-        dept.setDlocation(d.getDlocation());
-        dept.setDname(d.getDname());
-        Department updatedDept = rep.save(dept);
-        return ResponseEntity.ok(updatedDept);
-    }
-
-    public void deleteDepartment(Integer srcId,Integer destId) throws ResourceNotFoundException {
         Department Sdept = rep.findById(srcId).orElseThrow(
                 () -> new ResourceNotFoundException("Source Department "+ srcId+" not found :("));
 
@@ -54,11 +29,13 @@ public class DepartmentService
                 () -> new ResourceNotFoundException("Target Department "+ destId+" not present :("));
 
         List<Student> stuList = srep.findAllByDept(Sdept);
+        List<Student> updatedList = new ArrayList<>();
         for(Student s : stuList)
         {
             s.setDept(Tdept);
-            srep.save(s);
+            updatedList.add(srep.save(s));
         }
         rep.deleteById(srcId);
+        return updatedList.size();
     }
 }
