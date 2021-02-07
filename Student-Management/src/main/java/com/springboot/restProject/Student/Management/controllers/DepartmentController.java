@@ -59,7 +59,7 @@ public class DepartmentController
     }
 
     @DeleteMapping("/departments")
-    public Integer delete(@RequestParam Map<String,String> params) throws ResourceNotFoundException {
+    public Boolean delete(@RequestParam Map<String,String> params) throws ResourceNotFoundException {
         Integer srcId = Integer.parseInt(params.get("sourceDept"));
         Integer destId = Integer.parseInt(params.get("targetDept"));
 

@@ -20,7 +20,7 @@ public class DepartmentService
     @Autowired
     private StudentRepository srep;
 
-    public Integer deleteDepartment(Integer srcId, Integer destId) throws ResourceNotFoundException {
+    public Boolean deleteDepartment(Integer srcId, Integer destId) throws ResourceNotFoundException {
 
         Department Sdept = rep.findById(srcId).orElseThrow(
                 () -> new ResourceNotFoundException("Source Department "+ srcId+" not found :("));
@@ -36,6 +36,6 @@ public class DepartmentService
             updatedList.add(srep.save(s));
         }
         rep.deleteById(srcId);
-        return updatedList.size();
+        return true;
     }
 }

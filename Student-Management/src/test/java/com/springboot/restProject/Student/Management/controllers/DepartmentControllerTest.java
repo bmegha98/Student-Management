@@ -124,14 +124,14 @@ public class DepartmentControllerTest
         verifyNoMoreInteractions(drep);
     }
 
-    /*
+
     @Test
     public void TestDeleteDepartment() throws Exception {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.put("sourceDept", Collections.singletonList("1"));
         parameters.put("targetDept", Collections.singletonList("5"));
 
-        Mockito.when(dservice.deleteDepartment(Mockito.any(Integer.class),Mockito.any(Integer.class))).thenReturn(new ArrayList<>());
+        Mockito.when(dservice.deleteDepartment(Mockito.any(Integer.class),Mockito.any(Integer.class))).thenReturn(true);
         mockMvc.perform(delete("/departments").contentType(MediaType.APPLICATION_JSON)
         .params(parameters))
                 .andExpect(status().isOk())
@@ -142,7 +142,7 @@ public class DepartmentControllerTest
     }
 
 
-     */
+
     @Test
     public void TestDepartmentMigration() throws Exception {
         Department srcDept = new Department();
