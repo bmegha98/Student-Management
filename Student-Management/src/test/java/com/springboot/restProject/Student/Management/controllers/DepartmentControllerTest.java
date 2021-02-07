@@ -174,7 +174,7 @@ public class DepartmentControllerTest
         mockMvc.perform(delete("/departments").contentType(MediaType.APPLICATION_JSON)
                 .param("sourceDept","1").param("targetDept","5"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(1)));
+                .andExpect(jsonPath("$",is(true)));
 
     }
 
