@@ -1,15 +1,13 @@
 package com.springboot.restProject.Student.Management.controllers;
 
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.springboot.restProject.Student.Management.exceptions.ResourceNotFoundException;
 import com.springboot.restProject.Student.Management.models.entities.Department;
+import com.springboot.restProject.Student.Management.models.entities.Student;
 import com.springboot.restProject.Student.Management.repositories.DepartmentRepository;
 import com.springboot.restProject.Student.Management.repositories.StudentRepository;
 import com.springboot.restProject.Student.Management.services.DepartmentService;
@@ -120,24 +118,6 @@ public class DepartmentControllerTest
 
 
     @Test
-    public void TestDeleteDepartment() throws Exception {
-        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-        parameters.put("sourceDept", Collections.singletonList("1"));
-        parameters.put("targetDept", Collections.singletonList("5"));
-
-        Mockito.when(dservice.deleteDepartment(Mockito.any(Integer.class),Mockito.any(Integer.class))).thenReturn(true);
-        mockMvc.perform(delete("/departments").contentType(MediaType.APPLICATION_JSON)
-        .params(parameters))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(true)));
-
-        verify(dservice,times(1)).deleteDepartment(Mockito.any(Integer.class),Mockito.any(Integer.class));
-        verifyNoMoreInteractions(dservice);
-    }
-
-
-/*
-    @Test
     public void TestDepartmentMigration() throws Exception {
         Department srcDept = new Department();
         srcDept.setDnumber(1);
@@ -165,12 +145,12 @@ public class DepartmentControllerTest
         Mockito.when(rep.findAllByDept(srcDept)).thenReturn(studentList);
         Mockito.when(rep.save(Mockito.any(Student.class))).thenReturn(updatedStudent);
 
-        mockMvc.perform(delete("/departments?sourceDept=1&targetDept=5").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/departments").contentType(MediaType.APPLICATION_JSON).param("sourceDept","1").param("targetDept","5"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$",is(true)));
+                .andExpect(jsonPath("$",hasSize(1)))
+                .andExpect(jsonPath("$[0].dept.dname",is(s.getDept().getDname())));
 
     }
 
- */
 
 }
